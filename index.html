@@ -1025,62 +1025,204 @@
               <div class="tab">💡 Ideas <span class="tab-count">1</span></div>
             </div>
 
-            <div class="page-body">
-              <!-- Week nav -->
-              <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
-                <span style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;">Quarter</span>
-                <div style="display:flex;gap:6px;">
-                  <span class="protein-pill inactive">Q1</span>
-                  <span class="protein-pill active">Q2</span>
-                  <span class="protein-pill inactive">Q3</span>
-                  <span class="protein-pill inactive">Q4</span>
-                </div>
-              </div>
+            <div class="page-body" style="padding:0;">
 
-              <!-- Protein map table -->
-              <div class="card" style="overflow-x:auto;padding:0;">
-                <table class="protein-table">
+              <!-- Protein map table — full spreadsheet layout -->
+              <div style="overflow-x:auto;font-size:11px;">
+                <table style="border-collapse:collapse;width:100%;min-width:900px;">
+
+                  <!-- ── HEADER ROW 1: season + week labels ── -->
                   <thead>
-                    <tr>
-                      <th class="row-header" style="width:80px;">Category</th>
-                      <th>W1<br/><span style="font-weight:400;color:#bbb;font-size:10px;">30 Mar</span></th>
-                      <th>W2<br/><span style="font-weight:400;color:#bbb;font-size:10px;">6 Apr</span></th>
-                      <th>W3<br/><span style="font-weight:400;color:#bbb;font-size:10px;">13 Apr</span></th>
-                      <th>W4<br/><span style="font-weight:400;color:#bbb;font-size:10px;">20 Apr</span></th>
+                    <tr style="background:#f5f5f5;">
+                      <th style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;background:#ffd700;color:#1a1a1a;font-weight:800;font-size:12px;min-width:70px;">JUN-AUG</th>
+                      <th style="border:1px solid #d9d9d9;padding:6px 8px;font-size:10px;color:#888;text-align:center;min-width:60px;font-weight:500;line-height:1.3;">Dish Cost<br/><span style="font-size:9px;color:#bbb;">(from Category)</span></th>
+                      <th style="border:1px solid #d9d9d9;padding:6px 8px;background:#ffd700;color:#1a1a1a;font-weight:700;text-align:center;min-width:80px;font-size:11px;">FY27 Q2</th>
+                      <!-- Q2W1 -->
+                      <th colspan="3" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:700;background:#e6f7ff;color:#1890ff;">Q2W1</th>
+                      <!-- Q2W2 -->
+                      <th colspan="3" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:700;background:#e6f7ff;color:#1890ff;">Q2W2</th>
+                      <!-- Q2W3 -->
+                      <th colspan="3" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:700;background:#e6f7ff;color:#1890ff;">Q2W3</th>
+                      <!-- Q2W4 -->
+                      <th colspan="3" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:700;background:#e6f7ff;color:#1890ff;">Q2W4</th>
+                      <!-- Q2W5 -->
+                      <th colspan="3" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:700;background:#e6f7ff;color:#1890ff;">Q2W5</th>
+                    </tr>
+                    <!-- ── HEADER ROW 2: sub-column labels ── -->
+                    <tr style="background:#fafafa;">
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;"></th>
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;"></th>
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;"></th>
+                      <!-- W1 subs -->
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#555;font-weight:600;text-align:center;min-width:120px;">Protein</th>
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#888;font-weight:400;text-align:center;min-width:28px;">CW</th>
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#888;font-style:italic;font-weight:400;text-align:center;min-width:52px;">Ave.p/p</th>
+                      <!-- W2 subs -->
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#555;font-weight:600;text-align:center;min-width:120px;">Protein</th>
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#888;font-weight:400;text-align:center;min-width:28px;">CW</th>
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#888;font-style:italic;font-weight:400;text-align:center;min-width:52px;">Ave.p/p</th>
+                      <!-- W3 subs -->
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#555;font-weight:600;text-align:center;min-width:120px;">Protein</th>
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#888;font-weight:400;text-align:center;min-width:28px;">CW</th>
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#888;font-style:italic;font-weight:400;text-align:center;min-width:52px;">Ave.p/p</th>
+                      <!-- W4 subs -->
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#555;font-weight:600;text-align:center;min-width:120px;">Protein</th>
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#888;font-weight:400;text-align:center;min-width:28px;">CW</th>
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#888;font-style:italic;font-weight:400;text-align:center;min-width:52px;">Ave.p/p</th>
+                      <!-- W5 subs -->
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#555;font-weight:600;text-align:center;min-width:120px;">Protein</th>
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#888;font-weight:400;text-align:center;min-width:28px;">CW</th>
+                      <th style="border:1px solid #d9d9d9;padding:4px 6px;font-size:10px;color:#888;font-style:italic;font-weight:400;text-align:center;min-width:52px;">Ave.p/p</th>
                     </tr>
                   </thead>
+
                   <tbody>
-                    <tr>
-                      <td class="row-header">Adventurous Foodie</td>
-                      <td><span class="protein-tag pt-chicken">Chicken</span><span class="protein-tag pt-fish">Fish</span></td>
-                      <td><span class="protein-tag pt-beef">Beef</span><span class="protein-tag pt-veggie">Veggie</span></td>
-                      <td><span class="protein-tag pt-lamb">Lamb</span></td>
-                      <td><span class="protein-tag pt-pork">Pork</span><span class="protein-tag pt-chicken">Chicken</span></td>
+
+                    <!-- ════ FOODIE ════ -->
+                    <tr style="background:#fff;">
+                      <td rowspan="4" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:800;font-size:12px;color:#1a1a1a;background:#fffbe6;vertical-align:middle;writing-mode:horizontal-tb;">FOODIE</td>
+                      <td rowspan="4" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:700;color:#333;background:#fffbe6;vertical-align:middle;">R49.00</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;font-weight:600;color:#555;">Foodie</td>
+                      <!-- W1 -->
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Mince <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">1</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R12.89</td>
+                      <!-- W2 -->
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;background:#fff1f0;white-space:nowrap;"><span style="color:#888;font-size:10px;">[*]</span> Fish Tuna Fillet <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;background:#fff1f0;">1</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;background:#fff1f0;">R38.00</td>
+                      <!-- W3 -->
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Mini Fillets <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R11.45</td>
+                      <!-- W4 -->
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Lamb Leg Chops <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">4</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R31.59</td>
+                      <!-- W5 -->
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;background:#fff1f0;white-space:nowrap;"><span style="color:#888;font-size:10px;">[*]</span> Fish Squid <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;background:#fff1f0;">1</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;background:#fff1f0;">R44.00</td>
                     </tr>
                     <tr>
-                      <td class="row-header">Comfort Food</td>
-                      <td><span class="protein-tag pt-beef">Beef</span></td>
-                      <td><span class="protein-tag pt-chicken">Chicken</span><span class="protein-tag pt-pork">Pork</span></td>
-                      <td><span class="protein-tag pt-fish">Fish</span></td>
-                      <td><span class="protein-tag pt-lamb">Lamb</span></td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;color:#555;">Foodie</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Pork Kassler Loin Steak <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">4</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R20.70</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Venison Mince <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">4</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R13.21</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;background:#fff1f0;white-space:nowrap;"><span style="color:#888;font-size:10px;">[*]</span> Crumbed Chicken Breast <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;background:#fff1f0;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;background:#fff1f0;">R24.63</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;background:#fff1f0;white-space:nowrap;"><span style="color:#888;font-size:10px;">[*]</span> Fish Mussels <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;background:#fff1f0;">1</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;background:#fff1f0;">R40.00</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Pork Neck Steak <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">2</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R16.50</td>
                     </tr>
                     <tr>
-                      <td class="row-header">Quick &amp; Easy</td>
-                      <td><span class="protein-tag pt-chicken">Chicken</span></td>
-                      <td><span class="protein-tag pt-fish">Fish</span></td>
-                      <td><span class="protein-tag pt-beef">Beef</span><span class="protein-tag pt-veggie">Veggie</span></td>
-                      <td><span class="protein-tag pt-chicken">Chicken</span></td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;color:#555;">Foodie</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Rump Strips <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R25.90</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Drum &amp; Thigh Skin On <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R17.32</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Rump <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R33.63</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Winglette &amp; Drumlette <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R29.81</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Breast Skinless <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R12.87</td>
                     </tr>
                     <tr>
-                      <td class="row-header">Plant-Based</td>
-                      <td><span class="protein-tag pt-veggie">Legumes</span></td>
-                      <td><span class="protein-tag pt-veggie">Tofu</span></td>
-                      <td><span class="protein-tag pt-veggie">Veggie</span></td>
-                      <td><span class="protein-tag pt-veggie">Legumes</span></td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;color:#555;">Foodie</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Breast Skinless <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R12.87</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Lamb Leg Deboned &amp; Whole <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">4</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R29.68</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Biltong <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R30.80</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;background:#fff1f0;white-space:nowrap;"><span style="color:#888;font-size:10px;">[*]</span> Beef Wagyu Mince <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;background:#fff1f0;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;background:#fff1f0;">R20.76</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Vegetarian <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">—</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">—</td>
                     </tr>
+
+                    <!-- ════ Q&E ════ -->
+                    <tr style="background:#fff;">
+                      <td rowspan="4" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:800;font-size:12px;color:#1a1a1a;background:#e6f7ff;vertical-align:middle;">Q&amp;E</td>
+                      <td rowspan="4" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:700;color:#333;background:#e6f7ff;vertical-align:middle;">R44.50</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;font-weight:600;color:#555;">Quick &amp; Easy</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Pork Chorizo <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">4</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R20.85</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Rump Strips <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R25.90</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Pork Loin Chop <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">2</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R25.96</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Stroganoff <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">4</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R20.00</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Ostrich Goulash <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R11.85</td>
+                    </tr>
+                    <tr>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;color:#555;">Quick &amp; Easy</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Sirloin <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R33.30</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Ostrich Fillet <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R18.90</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Stroganoff <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">4</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R20.00</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Venison Goulash <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">4</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R19.73</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Breast Skinless <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R12.87</td>
+                    </tr>
+                    <tr>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;color:#555;">Quick &amp; Easy</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Mini Fillets <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R11.45</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Breast Skinless <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R12.87</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Mince <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">1</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R12.89</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Breast Skinless <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R12.87</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Mini Fillets <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R11.45</td>
+                    </tr>
+                    <tr>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;color:#555;">Quick &amp; Easy</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Lamb Mince <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R16.90</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Schnitzel (Tenderized) <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R20.45</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;background:#fff1f0;white-space:nowrap;"><span style="color:#888;font-size:10px;">[*]</span> Beef Meatballs <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;background:#fff1f0;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;background:#fff1f0;">R25.49</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Biltong <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R30.80</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Rump Strips <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R25.90</td>
+                    </tr>
+
+                    <!-- ════ FAN FAVES ════ -->
+                    <tr>
+                      <td rowspan="4" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:800;font-size:12px;color:#1a1a1a;background:#f9f0ff;vertical-align:middle;">FF</td>
+                      <td rowspan="4" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:700;color:#333;background:#f9f0ff;vertical-align:middle;">R44.50</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;font-weight:600;color:#555;">Fan Faves</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Drum &amp; Thigh Skin On <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R17.32</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;background:#fff1f0;white-space:nowrap;"><span style="color:#888;font-size:10px;">[*]</span> FF Burger Patty <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;background:#fff1f0;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;background:#fff1f0;">R16.50</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Lamb Goulash <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">4</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R29.25</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;background:#fff1f0;white-space:nowrap;"><span style="color:#888;font-size:10px;">[*]</span> Crumbed Chicken Breast <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;background:#fff1f0;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;background:#fff1f0;">R24.63</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Pork Belly Pieces <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">2</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R23.60</td>
+                    </tr>
+                    <tr>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;color:#555;">Fan Faves</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Venison Rump (deboned) <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">4</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R23.23</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Mini Fillets <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R11.45</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Breast Skinless <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R12.87</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Drum &amp; Thigh Skin On <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R17.32</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Lamb Mince <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R16.90</td>
+                    </tr>
+                    <tr>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;color:#555;">Fan Faves</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Schnitzel (Tenderized) <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R20.45</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Ostrich Mince <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R11.55</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Pork Neck Steak <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">2</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R16.50</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Sirloin <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R33.30</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Schnitzel (Tenderized) <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R20.45</td>
+                    </tr>
+                    <tr>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;color:#555;">Fan Faves</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Mince <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R15.40</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Rump <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R33.63</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Mince <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R15.40</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Ostrich Goulash <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R11.85</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Mini Fillets <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R11.45</td>
+                    </tr>
+
+                    <!-- ════ CARB CONSCIOUS ════ -->
+                    <tr>
+                      <td rowspan="2" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:800;font-size:12px;color:#1a1a1a;background:#f6ffed;vertical-align:middle;">CC</td>
+                      <td rowspan="2" style="border:1px solid #d9d9d9;padding:6px 8px;text-align:center;font-weight:700;color:#333;background:#f6ffed;vertical-align:middle;">R44.50</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;font-weight:600;color:#555;">Carb Conscious</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;background:#fff1f0;white-space:nowrap;"><span style="color:#888;font-size:10px;">[*]</span> Fish Swordfish <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;background:#fff1f0;">1</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;background:#fff1f0;">R32.50</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Sirloin <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R33.30</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Venison Rump (deboned) <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">4</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R23.23</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Lamb Goulash <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">4</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R29.25</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Beef Rump <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">5</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R33.63</td>
+                    </tr>
+                    <tr>
+                      <td style="border:1px solid #d9d9d9;padding:5px 8px;color:#555;">Carb Conscious</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Breast Skinless <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R12.87</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Pork Mince <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">1</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R10.88</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Breast Skinless <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R12.87</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;background:#fff1f0;white-space:nowrap;"><span style="color:#888;font-size:10px;">[*]</span> Fish Swordfish <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;background:#fff1f0;">1</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;background:#fff1f0;">R32.50</td>
+                      <td style="border:1px solid #d9d9d9;padding:5px 7px;white-space:nowrap;">Chicken Mini Fillets <span style="color:#bbb;">▾</span></td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:center;color:#555;">3</td><td style="border:1px solid #d9d9d9;padding:5px 6px;text-align:right;color:#555;">R11.45</td>
+                    </tr>
+
                   </tbody>
                 </table>
               </div>
+
+              <!-- Legend -->
+              <div style="display:flex;align-items:center;gap:16px;margin-top:10px;padding:8px 12px;background:#fafafa;border-radius:6px;border:1px solid #f0f0f0;font-size:11px;color:#888;flex-wrap:wrap;">
+                <span style="font-weight:700;color:#555;">Legend:</span>
+                <span><span style="display:inline-block;width:12px;height:12px;background:#fff1f0;border:1px solid #ffccc7;border-radius:2px;vertical-align:middle;margin-right:4px;"></span><strong style="color:#cf1322;">[*]</strong> Special / procured item</span>
+                <span><strong>CW</strong> = Cook Week (number of times cooked per cycle)</span>
+                <span><strong>Ave.p/p</strong> = Average cost per person (S2)</span>
+              </div>
+
               <!-- S1 vs S2 open decision banner -->
               <div class="highlight-change" style="position:relative;background:#fffbf0;border:1.5px solid #ffe58f;border-radius:8px;padding:14px 16px;margin-top:12px;">
                 <span style="position:absolute;top:-12px;right:0;background:#e17b2f;color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;">OPEN QUESTION — Kate's feedback</span>
@@ -1088,27 +1230,13 @@
                   <div style="font-size:20px;margin-top:2px;">⚠️</div>
                   <div>
                     <strong style="font-size:13px;color:#5d4037;display:block;margin-bottom:6px;">S1 vs S2 as the base SKU for Protein Mapping</strong>
-                    <p style="font-size:12px;color:#6d4c41;line-height:1.6;margin-bottom:8px;">
-                      Currently, the food team does protein mapping on <strong>Serves 1 (S1)</strong>. The proposal is to switch the base to <strong>Serves 2 (S2)</strong> — this would then flow automatically through the entire recipe creation process (Brainstorm → Recipe Writing → Costing).
-                    </p>
+                    <p style="font-size:12px;color:#6d4c41;line-height:1.6;margin-bottom:8px;">Currently the food team maps on <strong>S1</strong>. Kate proposes switching to <strong>S2</strong> so it flows through to Recipe Writing and Shoot Orders automatically.</p>
                     <div style="display:flex;gap:12px;font-size:12px;flex-wrap:wrap;">
-                      <div style="background:#f6ffed;border:1px solid #b7eb8f;border-radius:6px;padding:8px 12px;flex:1;min-width:160px;">
-                        <strong style="color:#389e0d;display:block;margin-bottom:3px;">Option A — S2 base (proposed)</strong>
-                        <span style="color:#555;">S2 SKU set in protein map → auto-populates recipe writing. Clean flow, consistent with shoot quantities.</span>
-                      </div>
-                      <div style="background:#fff1f0;border:1px solid #ffa39e;border-radius:6px;padding:8px 12px;flex:1;min-width:160px;">
-                        <strong style="color:#cf1322;display:block;margin-bottom:3px;">Option B — S1 base (current)</strong>
-                        <span style="color:#555;">Everything starts on S1. Depends on where Cornell sources his costing information — if from S1, this must stay.</span>
-                      </div>
-                    </div>
-                    <div style="margin-top:10px;background:#fff;border:1px dashed #d46b08;border-radius:6px;padding:8px 12px;font-size:12px;color:#d46b08;">
-                      🔍 <strong>Clarification needed:</strong> Confirm with Cornell where his costing data originates. If S1-based → use Option B. If S2 is fine → proceed with Option A.
+                      <div style="background:#f6ffed;border:1px solid #b7eb8f;border-radius:6px;padding:8px 12px;flex:1;min-width:160px;"><strong style="color:#389e0d;display:block;margin-bottom:3px;">Option A — S2 (proposed)</strong><span style="color:#555;">Consistent with shoot quantities. Clean end-to-end flow.</span></div>
+                      <div style="background:#fff1f0;border:1px solid #ffa39e;border-radius:6px;padding:8px 12px;flex:1;min-width:160px;"><strong style="color:#cf1322;display:block;margin-bottom:3px;">Option B — S1 (current)</strong><span style="color:#555;">Depends on Cornell's costing source — confirm before changing.</span></div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <div style="margin-top:12px;font-size:12px;color:#888;">
-                ℹ️ This protein map is used as a guide when adding dish ideas on the Ideas tab. Multiple chefs can add ideas for any protein in a given week.
               </div>
             </div>
           </div>
@@ -1117,24 +1245,24 @@
     </div>
     <div class="annotation-notes">
       <div class="annotation-note note-new">
-        <strong>Protein Map tab</strong>
-        New tab showing proteins assigned per category per week. This is the reference guide that chefs use when brainstorming — they see what proteins are available for each week before adding dish ideas.
+        <strong>Spreadsheet-style layout</strong>
+        The protein map replicates the existing Google Sheet used by the food team: category groups (FOODIE, Q&amp;E, FF, CC) as row spans, weeks as column groups, each week split into Protein ▾ / CW / Ave.p/p sub-columns.
       </div>
       <div class="annotation-note note-new">
-        <strong>Quarter toggle</strong>
-        Filter protein map by quarter (Q1–Q4). Weeks and dates update accordingly.
+        <strong>Category rows &amp; pricing</strong>
+        Each category (FOODIE, Q&amp;E, FF, CC) spans multiple meal-plan sub-rows and shows the target dish cost in the second column, matching the existing planning sheet.
       </div>
       <div class="annotation-note note-new">
-        <strong>Colour-coded protein tags</strong>
-        Each protein type has a distinct colour tag so chefs can scan the grid at a glance.
+        <strong>[*] Special / procured items</strong>
+        Cells highlighted in salmon with a [*] prefix denote externally procured or special proteins (e.g. Fish Swordfish, FF Burger Patty, Beef Wagyu Mince). These map to the pink-highlighted cells in the current spreadsheet.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>CW &amp; Ave.p/p sub-columns</strong>
+        Each week column shows Cook Week frequency (CW) and average cost per person (Ave.p/p at S2) alongside the protein dropdown, preserving the data density of the source spreadsheet.
       </div>
       <div class="annotation-note note-change">
         <strong>⚠️ Open: S1 vs S2 base SKU</strong>
-        Kate's proposal: switch protein mapping from S1 to S2. S2 is used for shoot orders (always fixed). Needs confirmation from Cornell re: where his costing data comes from before implementing.
-      </div>
-      <div class="annotation-note">
-        <strong>Editability</strong>
-        "+ Add Protein" button allows admins to assign proteins to weeks. In-cell editing can be added later.
+        Kate's proposal: switch protein mapping from S1 to S2. Needs confirmation from Cornell re: costing data source before implementing.
       </div>
     </div>
   </div>
