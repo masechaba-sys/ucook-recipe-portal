@@ -1,0 +1,1618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recipe Portal – UX Redesign Proposals</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f0f2f5; color: #333; }
+
+  /* ─── Cover ─────────────────────────────────────── */
+  .cover {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: #fff;
+    padding: 60px 80px;
+    min-height: 200px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .cover h1 { font-size: 32px; font-weight: 700; margin-bottom: 8px; }
+  .cover p { font-size: 15px; opacity: 0.7; }
+  .cover-badge { background: #e17b2f; color: #fff; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 1px; }
+
+  /* ─── Section wrapper ─────────────────────────── */
+  .section-wrap { padding: 48px 60px; }
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: #e17b2f; margin-bottom: 6px;
+  }
+  .section-title { font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 6px; }
+  .section-desc { font-size: 14px; color: #666; margin-bottom: 32px; max-width: 680px; line-height: 1.6; }
+  .divider { border: none; border-top: 2px solid #e8e8e8; margin: 48px 0; }
+
+  /* ─── Change chips ────────────────────────────── */
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+  .chip {
+    font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 12px;
+    letter-spacing: 0.5px;
+  }
+  .chip-new { background: #e6f7ff; color: #1890ff; border: 1px solid #91d5ff; }
+  .chip-change { background: #fff7e6; color: #d46b08; border: 1px solid #ffd591; }
+  .chip-remove { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; }
+  .chip-keep { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
+
+  /* ─── Mockup frame ────────────────────────────── */
+  .mockup-outer {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+    overflow: hidden;
+    margin-bottom: 40px;
+  }
+  .mockup-header {
+    background: #1a1a2e;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .mockup-header span { opacity: 0.5; font-size: 11px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #febc2e; }
+  .dot-g { background: #28c840; }
+
+  /* ─── App Shell ───────────────────────────────── */
+  .app-shell { display: flex; min-height: 640px; }
+  .sidebar {
+    width: 200px; min-width: 200px;
+    background: #fff;
+    border-right: 1px solid #e8e8e8;
+    padding: 16px 0;
+    font-size: 13px;
+  }
+  .sidebar-logo {
+    padding: 0 20px 16px;
+    font-weight: 800; font-size: 18px; color: #1a1a2e;
+    border-bottom: 1px solid #f0f0f0; margin-bottom: 8px;
+    letter-spacing: -1px;
+  }
+  .sidebar-item {
+    padding: 9px 20px; color: #555; cursor: pointer; display: flex; align-items: center; gap: 8px;
+    font-size: 13px;
+  }
+  .sidebar-item.active { color: #1890ff; background: #e6f7ff; border-right: 3px solid #1890ff; font-weight: 600; }
+  .sidebar-item.section-head { color: #999; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 12px 20px 4px; }
+  .sidebar-item svg, .sidebar-icon { opacity: 0.7; }
+  .sidebar-item.active .sidebar-icon { opacity: 1; }
+
+  .main-content { flex: 1; background: #f7f8fa; overflow: hidden; }
+  .page-header {
+    background: #fff; border-bottom: 1px solid #e8e8e8;
+    padding: 14px 28px; display: flex; align-items: center; justify-content: space-between;
+  }
+  .page-header h2 { font-size: 18px; font-weight: 700; color: #1a1a2e; display: flex; align-items: center; gap: 8px; }
+  .page-body { padding: 24px 28px; }
+
+  /* ─── Buttons ─────────────────────────────────── */
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 7px 16px; border-radius: 6px; font-size: 13px; font-weight: 500; cursor: pointer; border: none;
+  }
+  .btn-primary { background: #1890ff; color: #fff; }
+  .btn-default { background: #fff; color: #333; border: 1px solid #d9d9d9; }
+  .btn-ghost { background: transparent; color: #1890ff; border: 1px solid #1890ff; }
+  .btn-sm { padding: 4px 10px; font-size: 12px; }
+  .btn-danger { background: #fff; color: #ff4d4f; border: 1px solid #ff4d4f; }
+
+  /* ─── Tabs ────────────────────────────────────── */
+  .tabs { display: flex; border-bottom: 1px solid #e8e8e8; margin-bottom: 20px; background: #fff; padding: 0 28px; }
+  .tab {
+    padding: 12px 16px; font-size: 13px; color: #666; cursor: pointer;
+    border-bottom: 2px solid transparent; margin-bottom: -1px; display: flex; align-items: center; gap: 6px;
+    white-space: nowrap;
+  }
+  .tab.active { color: #1890ff; border-bottom-color: #1890ff; font-weight: 600; }
+  .tab-count {
+    background: #e6f7ff; color: #1890ff; border-radius: 10px;
+    font-size: 10px; font-weight: 700; padding: 1px 6px;
+  }
+  .tab-new-badge {
+    background: #ff4d4f; color: #fff; border-radius: 10px;
+    font-size: 9px; font-weight: 700; padding: 1px 5px; letter-spacing: 0.3px;
+  }
+
+  /* ─── Cards / panels ──────────────────────────── */
+  .card { background: #fff; border-radius: 8px; border: 1px solid #e8e8e8; padding: 20px; margin-bottom: 16px; }
+  .card-tight { padding: 14px 20px; }
+
+  /* ─── Table ───────────────────────────────────── */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: #fafafa; padding: 8px 12px; text-align: left; font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px solid #e8e8e8; }
+  td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; color: #333; }
+  tr:last-child td { border-bottom: none; }
+  .td-muted { color: #bbb; font-size: 12px; }
+
+  /* ─── Annotation ──────────────────────────────── */
+  .annotation-row { display: flex; gap: 24px; align-items: flex-start; margin-bottom: 32px; }
+  .annotation-screen { flex: 1; }
+  .annotation-notes { width: 240px; min-width: 240px; }
+  .annotation-note {
+    background: #fffbf0; border: 1px solid #ffe58f; border-radius: 8px;
+    padding: 12px 14px; margin-bottom: 12px; font-size: 12px; line-height: 1.6; color: #5d4037;
+  }
+  .annotation-note strong { display: block; color: #d46b08; margin-bottom: 4px; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .annotation-note.note-new { background: #f0f7ff; border-color: #91d5ff; color: #003a8c; }
+  .annotation-note.note-new strong { color: #1890ff; }
+  .annotation-note.note-change { background: #fff7e6; border-color: #ffd591; }
+
+  /* ─── Red-line callout ───────────────────────── */
+  .callout-dot {
+    width: 22px; height: 22px; border-radius: 50%; background: #ff4d4f; color: #fff;
+    font-size: 10px; font-weight: 800; display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .callout-dot.blue { background: #1890ff; }
+  .callout-dot.orange { background: #e17b2f; }
+
+  /* ─── Inline field ────────────────────────────── */
+  .field-row { display: flex; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+  .field { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 120px; }
+  .field label { font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+  .field input, .field select, .field textarea {
+    border: 1px solid #d9d9d9; border-radius: 6px; padding: 8px 10px; font-size: 13px;
+    color: #333; background: #fff; width: 100%;
+  }
+  .field textarea { resize: vertical; min-height: 64px; }
+  .field input:focus, .field select:focus { outline: none; border-color: #1890ff; box-shadow: 0 0 0 2px rgba(24,144,255,0.15); }
+  .field-hint { font-size: 11px; color: #aaa; margin-top: 2px; }
+
+  /* ─── Status badges ────────────────────────────── */
+  .badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+  .badge-green { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
+  .badge-blue { background: #e6f7ff; color: #1890ff; border: 1px solid #91d5ff; }
+  .badge-orange { background: #fff7e6; color: #d46b08; border: 1px solid #ffd591; }
+  .badge-gray { background: #fafafa; color: #888; border: 1px solid #d9d9d9; }
+  .badge-red { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; }
+
+  /* ─── Protein pills ───────────────────────────── */
+  .protein-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer;
+    border: 2px solid transparent;
+  }
+  .protein-pill.active { border-color: #1890ff; background: #e6f7ff; color: #1890ff; }
+  .protein-pill.inactive { border-color: #e8e8e8; background: #fff; color: #666; }
+
+  /* ─── Empty state ─────────────────────────────── */
+  .empty-state { text-align: center; padding: 48px 24px; color: #bbb; }
+  .empty-state .empty-icon { font-size: 36px; margin-bottom: 12px; }
+  .empty-state p { font-size: 13px; }
+
+  /* ─── Divider label ───────────────────────────── */
+  .frame-label {
+    background: #1a1a2e; color: #fff; padding: 8px 20px;
+    font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .frame-label .frame-num {
+    background: #e17b2f; color: #fff;
+    width: 22px; height: 22px; border-radius: 50%;
+    font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ─── Grid ────────────────────────────────────── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+  /* ─── Highlight overlay ───────────────────────── */
+  .highlight-new { outline: 2px dashed #1890ff; outline-offset: 2px; border-radius: 4px; position: relative; }
+  .highlight-change { outline: 2px dashed #e17b2f; outline-offset: 2px; border-radius: 4px; }
+  .highlight-note {
+    position: absolute; top: -20px; right: -2px;
+    background: #1890ff; color: #fff; font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 4px; letter-spacing: 0.5px; white-space: nowrap;
+    z-index: 10;
+  }
+
+  /* ─── Planner banner ──────────────────────────── */
+  .planner-bar { background: #e6f7ff; border-radius: 8px; padding: 10px 16px; display: flex; align-items: center; gap: 16px; margin-bottom: 16px; font-size: 13px; }
+  .planner-bar strong { color: #1890ff; margin-right: 4px; }
+
+  /* ─── Cost cards ──────────────────────────────── */
+  .cost-card { background: #fff; border: 1px solid #e8e8e8; border-radius: 8px; padding: 16px 20px; }
+  .cost-card .cost-label { font-size: 10px; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .cost-card .cost-value { font-size: 22px; font-weight: 700; color: #1890ff; }
+  .cost-card .cost-sub { font-size: 11px; color: #aaa; margin-top: 4px; }
+
+  /* ─── Step row ────────────────────────────────── */
+  .step-row { display: flex; gap: 12px; align-items: flex-start; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: #f0f0f0; color: #666; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-content { flex: 1; font-size: 13px; color: #333; }
+  .step-actions { display: flex; gap: 6px; }
+
+  /* Search / hero card */
+  .search-hero { background: #fff; border-radius: 12px; border: 1px solid #e8e8e8; padding: 32px 36px; text-align: center; margin-bottom: 24px; }
+  .search-hero h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; color: #1a1a2e; }
+  .search-hero p { font-size: 14px; color: #888; margin-bottom: 24px; }
+  .search-bar { display: flex; gap: 10px; max-width: 560px; margin: 0 auto; }
+  .search-bar input { flex: 1; border: 1.5px solid #d9d9d9; border-radius: 8px; padding: 10px 16px; font-size: 14px; }
+  .search-bar input:focus { outline: none; border-color: #1890ff; }
+
+  .action-card {
+    background: #fff; border: 1.5px solid #e8e8e8; border-radius: 10px;
+    padding: 20px; text-align: center; cursor: pointer; transition: border-color 0.2s;
+  }
+  .action-card:hover { border-color: #1890ff; }
+  .action-card .action-icon { font-size: 28px; margin-bottom: 10px; }
+  .action-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: #1a1a2e; }
+  .action-card p { font-size: 12px; color: #888; }
+  .action-card.primary-card { background: #e6f7ff; border-color: #91d5ff; }
+
+  .dish-row { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid #f0f0f0; }
+  .dish-row:last-child { border-bottom: none; }
+  .dish-avatar { width: 36px; height: 36px; border-radius: 8px; background: linear-gradient(135deg, #1890ff22, #1890ff44); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .dish-info { flex: 1; }
+  .dish-info strong { font-size: 13px; font-weight: 600; display: block; color: #1a1a2e; }
+  .dish-info span { font-size: 11px; color: #aaa; }
+
+  /* Ingredient rows */
+  .ing-row { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid #f5f5f5; font-size: 12px; }
+  .ing-row:last-child { border-bottom: none; }
+  .ing-cell { color: #333; }
+  .ing-cell.muted { color: #bbb; }
+  .ing-input { border: 1px solid #e8e8e8; border-radius: 4px; padding: 4px 8px; font-size: 12px; width: 56px; text-align: center; }
+  .ing-input:focus { outline: none; border-color: #1890ff; }
+  .ing-label { font-size: 11px; color: #888; text-align: center; width: 56px; }
+  .ing-wide { flex: 2; min-width: 140px; }
+  .ing-mid { flex: 1; min-width: 80px; }
+
+  /* Protein map table */
+  .protein-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .protein-table th { background: #fafafa; padding: 8px 10px; text-align: center; font-size: 11px; font-weight: 700; color: #888; border: 1px solid #e8e8e8; }
+  .protein-table th.row-header { text-align: left; }
+  .protein-table td { padding: 8px 10px; border: 1px solid #e8e8e8; text-align: center; vertical-align: top; }
+  .protein-table td.row-header { text-align: left; font-weight: 600; color: #333; background: #fafafa; }
+  .protein-tag { display: inline-block; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: 600; margin: 2px; }
+  .pt-chicken { background: #fff7e6; color: #d46b08; }
+  .pt-beef { background: #fff1f0; color: #cf1322; }
+  .pt-fish { background: #e6f7ff; color: #1890ff; }
+  .pt-lamb { background: #f9f0ff; color: #722ed1; }
+  .pt-veggie { background: #f6ffed; color: #389e0d; }
+  .pt-pork { background: #fce4ec; color: #c2185b; }
+
+  /* SKU columns emphasis */
+  .sku-header { background: #f0f7ff !important; color: #1890ff !important; }
+
+  /* Watermark */
+  .watermark { text-align: right; padding: 12px 20px; font-size: 10px; color: #ccc; letter-spacing: 0.5px; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════
+     COVER
+══════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div>
+    <p style="font-size:11px;letter-spacing:2px;text-transform:uppercase;opacity:0.5;margin-bottom:8px;">UCook · Recipe Portal</p>
+    <h1>UX Redesign Proposals</h1>
+    <p>Based on review session · 30 March 2026 · Prepared for development handoff</p>
+    <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap;">
+      <div style="background:rgba(255,255,255,0.1);padding:8px 16px;border-radius:8px;font-size:12px;">
+        <span style="opacity:0.6">Screens</span> &nbsp;<strong>5</strong>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);padding:8px 16px;border-radius:8px;font-size:12px;">
+        <span style="opacity:0.6">Changes</span> &nbsp;<strong>12</strong>
+      </div>
+      <div style="background:rgba(255,255,255,0.1);padding:8px 16px;border-radius:8px;font-size:12px;">
+        <span style="opacity:0.6">New screens</span> &nbsp;<strong>2</strong>
+      </div>
+    </div>
+  </div>
+  <div style="text-align:right;">
+    <span class="cover-badge">DESIGN SPEC</span>
+    <p style="margin-top:12px;font-size:12px;opacity:0.5;">masechaba@ucook.co.za</p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════
+     LEGEND
+══════════════════════════════════════════════════════ -->
+<div style="background:#fff;border-bottom:2px solid #e8e8e8;padding:16px 60px;display:flex;gap:24px;align-items:center;font-size:12px;">
+  <strong style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#888;">Legend</strong>
+  <span class="chip chip-new">● New element</span>
+  <span class="chip chip-change">● Changed</span>
+  <span class="chip chip-remove">● Remove</span>
+  <span class="chip chip-keep">● Keep as-is</span>
+  <span style="color:#aaa;margin-left:auto;font-size:11px;">Dashed blue outline = new · Dashed orange = changed</span>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 1 — RECIPE WRITING: INTERMEDIATE LANDING
+══════════════════════════════════════════════════════ -->
+<div class="section-wrap">
+  <div class="section-label">Screen 1 of 4 · NEW SCREEN</div>
+  <div class="section-title">Recipe Writing — Entry / Landing Screen</div>
+  <div class="section-desc">
+    Currently, clicking "Recipe Writing" drops the user directly into a blank "New Recipe" form. The feedback is clear: the entry point needs an intermediate screen where users can search existing dishes, select a draft, or create something new. This removes confusion about how to access existing work.
+  </div>
+  <div class="chips">
+    <span class="chip chip-new">New screen</span>
+    <span class="chip chip-change">Replaces direct jump to blank form</span>
+  </div>
+
+  <div class="annotation-row">
+    <div class="annotation-screen">
+      <div class="mockup-outer">
+        <div class="frame-label">
+          <span class="frame-num">1</span>
+          Recipe Writing — Entry Screen (NEW)
+        </div>
+        <div class="app-shell">
+          <!-- Sidebar -->
+          <div class="sidebar">
+            <div class="sidebar-logo">UCOOK</div>
+            <div class="sidebar-item section-head">Recipe Creation</div>
+            <div class="sidebar-item">💡 Brainstorm</div>
+            <div class="sidebar-item">📅 Planner</div>
+            <div class="sidebar-item active">✏️ Recipe Writing</div>
+            <div class="sidebar-item">💰 Costing</div>
+          </div>
+          <!-- Main -->
+          <div class="main-content">
+            <div class="page-header">
+              <h2>✏️ Recipe Writing</h2>
+            </div>
+            <div class="page-body">
+
+              <!-- Search hero -->
+              <div class="search-hero highlight-new" style="position:relative;">
+                <span class="highlight-note">NEW</span>
+                <h3>Find or start a recipe</h3>
+                <p>Search for an existing dish to edit, or start a fresh draft</p>
+                <div class="search-bar">
+                  <input type="text" placeholder="Search by dish name, category, week…" />
+                  <button class="btn btn-primary">🔍 Search</button>
+                </div>
+              </div>
+
+              <!-- Quick action cards -->
+              <div class="grid-3 highlight-new" style="margin-bottom:24px;position:relative;">
+                <span class="highlight-note">NEW</span>
+                <div class="action-card primary-card">
+                  <div class="action-icon">📄</div>
+                  <h4>New Draft</h4>
+                  <p>Start a brand new recipe from scratch</p>
+                  <br/>
+                  <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center;">+ Create New Draft</button>
+                </div>
+                <div class="action-card">
+                  <div class="action-icon">📋</div>
+                  <h4>Copy from Existing</h4>
+                  <p>Duplicate an existing dish as a starting point</p>
+                  <br/>
+                  <button class="btn btn-ghost btn-sm" style="width:100%;justify-content:center;">Select &amp; Copy</button>
+                </div>
+                <div class="action-card">
+                  <div class="action-icon">📂</div>
+                  <h4>Open Draft</h4>
+                  <p>Continue working on a saved draft</p>
+                  <br/>
+                  <button class="btn btn-default btn-sm" style="width:100%;justify-content:center;">Browse Drafts</button>
+                </div>
+              </div>
+
+              <!-- Recent drafts -->
+              <div class="card highlight-new" style="position:relative;">
+                <span class="highlight-note" style="top:-12px;">NEW</span>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
+                  <strong style="font-size:14px;">Recent Drafts</strong>
+                  <a style="font-size:12px;color:#1890ff;cursor:pointer;">View all →</a>
+                </div>
+                <div class="dish-row">
+                  <div class="dish-avatar">🥗</div>
+                  <div class="dish-info">
+                    <strong>Chicken Mince Salad</strong>
+                    <span>Q2W1 · Adventurous Foodie · Last edited 30 Mar</span>
+                  </div>
+                  <span class="badge badge-green">✓ Draft</span>
+                  <button class="btn btn-default btn-sm">Open</button>
+                  <button class="btn btn-ghost btn-sm">Copy</button>
+                </div>
+                <div class="dish-row">
+                  <div class="dish-avatar">🍝</div>
+                  <div class="dish-info">
+                    <strong>Lamb Ragu Pasta</strong>
+                    <span>Q2W1 · Comfort Food · Last edited 28 Mar</span>
+                  </div>
+                  <span class="badge badge-orange">In Progress</span>
+                  <button class="btn btn-default btn-sm">Open</button>
+                  <button class="btn btn-ghost btn-sm">Copy</button>
+                </div>
+                <div class="dish-row">
+                  <div class="dish-avatar">🐟</div>
+                  <div class="dish-info">
+                    <strong>Lemon Butter Fish Tacos</strong>
+                    <span>Q2W1 · Quick &amp; Easy · Last edited 27 Mar</span>
+                  </div>
+                  <span class="badge badge-gray">Pending</span>
+                  <button class="btn btn-default btn-sm">Open</button>
+                  <button class="btn btn-ghost btn-sm">Copy</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Annotations -->
+    <div class="annotation-notes">
+      <div class="annotation-note note-new">
+        <strong>① Search Bar</strong>
+        Before entering the editor, the user can search by dish name, category, or week. This is the primary navigation mechanism.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>② 3 Action Cards</strong>
+        Clear decision point: New Draft, Copy from Existing, or Open Draft. Eliminates the confusion of landing on a blank form.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>③ Recent Drafts List</strong>
+        Shows recently edited dishes with status badges (Draft, In Progress, Pending). Each row has Open and Copy actions inline.
+      </div>
+      <div class="annotation-note note-change">
+        <strong>⚠️ Costing note</strong>
+        Per the review, costing should remain on a separate screen — do NOT merge costing into this recipe writing flow.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 2 — RECIPE WRITING: REDESIGNED TABS
+══════════════════════════════════════════════════════ -->
+<hr class="divider" style="margin: 0 60px;">
+
+<div class="section-wrap">
+  <div class="section-label">Screen 2 of 4 · UPDATED SCREEN</div>
+  <div class="section-title">Recipe Writing — Reorganised Tab Structure</div>
+  <div class="section-desc">
+    The current recipe writing screen is "super packed" — Ingredients and Method are stacked on the same page as cost cards and planner assignment. The fix is to move Ingredients and Method into their own dedicated tabs, making the default "Recipe" tab lighter and focused on the dish's core identity.
+  </div>
+  <div class="chips">
+    <span class="chip chip-new">Ingredients tab (new)</span>
+    <span class="chip chip-new">Method tab (new)</span>
+    <span class="chip chip-change">Recipe tab decluttered</span>
+    <span class="chip chip-keep">Details &amp; Nutrition tabs unchanged</span>
+  </div>
+
+  <!-- 2a: Recipe tab (decluttered) -->
+  <p style="font-weight:700;font-size:13px;margin-bottom:12px;color:#1a1a2e;">2a — Recipe tab (default view, decluttered)</p>
+  <div class="annotation-row">
+    <div class="annotation-screen">
+      <div class="mockup-outer">
+        <div class="frame-label">
+          <span class="frame-num">2a</span>
+          Recipe Writing — Recipe Tab
+        </div>
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sidebar-logo">UCOOK</div>
+            <div class="sidebar-item section-head">Recipe Creation</div>
+            <div class="sidebar-item">💡 Brainstorm</div>
+            <div class="sidebar-item">📅 Planner</div>
+            <div class="sidebar-item active">✏️ Recipe Writing</div>
+            <div class="sidebar-item">💰 Costing</div>
+          </div>
+          <div class="main-content">
+            <div class="page-header">
+              <h2>✏️ Chicken Mince Salad</h2>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-default btn-sm">Export</button>
+                <button class="btn btn-default btn-sm">Import</button>
+                <button class="btn btn-primary btn-sm">💾 Save Draft</button>
+              </div>
+            </div>
+
+            <!-- New tab bar with 5 tabs -->
+            <div class="tabs highlight-change" style="position:relative;">
+              <span style="position:absolute;top:-12px;right:0;background:#e17b2f;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.5px;">CHANGED</span>
+              <div class="tab active">📋 Recipe</div>
+              <div class="tab">🧂 Ingredients <span class="tab-count">0</span> <span class="tab-new-badge">NEW TAB</span></div>
+              <div class="tab">📖 Method <span class="tab-count">0</span> <span class="tab-new-badge">NEW TAB</span></div>
+              <div class="tab">📝 Details</div>
+              <div class="tab">❤️ Nutrition</div>
+            </div>
+
+            <div class="page-body">
+              <div class="planner-bar">
+                <span>📅 <strong>PLANNER</strong></span>
+                <select style="border:1px solid #91d5ff;border-radius:4px;padding:4px 8px;font-size:12px;background:#e6f7ff;color:#1890ff;">
+                  <option>Adventurous Foodie</option>
+                </select>
+                <span style="color:#888;font-size:12px;">Week</span>
+                <input style="border:1px solid #91d5ff;border-radius:4px;padding:4px 8px;width:80px;font-size:12px;" placeholder="e.g. Q2W1"/>
+                <span style="color:#888;font-size:12px;">Set category so this dish lands in the right Planner row</span>
+              </div>
+
+              <!-- Cost cards - keep -->
+              <div class="grid-3" style="margin-bottom:20px;">
+                <div class="cost-card">
+                  <div class="cost-label">Food Cost JHB</div>
+                  <div class="cost-value">R0.00</div>
+                  <div class="cost-sub">Costed on Serves 2 (S2) qty</div>
+                </div>
+                <div class="cost-card">
+                  <div class="cost-label">Food Cost CPT</div>
+                  <div class="cost-value" style="color:#52c41a;">R0.00</div>
+                  <div class="cost-sub">Costed on Serves 2 (S2) qty</div>
+                </div>
+                <div class="cost-card">
+                  <div class="cost-label">Average Cost</div>
+                  <div class="cost-value">R0.00</div>
+                  <div class="cost-sub">JHB + CPT average</div>
+                </div>
+              </div>
+
+              <!-- Basic info fields -->
+              <div class="card">
+                <div class="field-row">
+                  <div class="field" style="flex:2;">
+                    <label>Dish name *</label>
+                    <input value="Chicken Mince Salad" />
+                  </div>
+                  <div class="field">
+                    <label>Category</label>
+                    <select><option>Adventurous Foodie</option></select>
+                  </div>
+                  <div class="field" style="flex:0.6;min-width:80px;">
+                    <label>Protein</label>
+                    <select><option>Chicken</option></select>
+                  </div>
+                </div>
+                <div class="field-row">
+                  <div class="field" style="flex:2;">
+                    <label>Description / notes</label>
+                    <textarea placeholder="Short dish description..."></textarea>
+                  </div>
+                  <div class="field">
+                    <label>Tags</label>
+                    <input placeholder="gluten-free, quick..." />
+                    <span class="field-hint">Comma-separated</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Test/Shoot flags — redesigned per Kate's feedback -->
+              <div class="highlight-change" style="position:relative;border:1px solid #e8e8e8;border-radius:8px;padding:16px;margin-top:14px;">
+                <span style="position:absolute;top:-12px;right:0;background:#e17b2f;color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:0.5px;">UPDATED — Kate's feedback</span>
+                <div style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;">Test &amp; Shoot Flags</div>
+
+                <!-- SHOOT panel -->
+                <div style="border:1.5px solid #e8e8e8;border-radius:8px;padding:14px;margin-bottom:10px;background:#fafafa;">
+                  <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                    <input type="checkbox" id="shoot-cb" checked />
+                    <label for="shoot-cb" style="font-size:13px;font-weight:600;cursor:pointer;">📸 Shoot</label>
+                    <span class="badge badge-blue" style="font-size:10px;">Always Serves 2 (S2)</span>
+                  </div>
+                  <div style="font-size:12px;color:#888;margin-bottom:10px;padding-left:22px;">
+                    When marked for shoot, the procurement team will order S2 quantities only. Quantities and SKUs are fixed to the Serves 2 portion.
+                  </div>
+                  <div style="padding-left:22px;">
+                    <button class="btn btn-ghost btn-sm" style="display:flex;align-items:center;gap:6px;">
+                      📋 Generate Shoot Order List
+                    </button>
+                  </div>
+                </div>
+
+                <!-- TEST panel -->
+                <div style="border:1.5px solid #e8e8e8;border-radius:8px;padding:14px;background:#fafafa;">
+                  <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+                    <input type="checkbox" id="test-cb" checked />
+                    <label for="test-cb" style="font-size:13px;font-weight:600;cursor:pointer;">🧪 Test</label>
+                    <span class="badge badge-orange" style="font-size:10px;">Select serves to test</span>
+                  </div>
+                  <div style="font-size:12px;color:#888;margin-bottom:10px;padding-left:22px;">
+                    Select which serve sizes will be tested. Multiple combinations allowed (e.g. S1 only, S1+S3, S2 only).
+                  </div>
+                  <!-- Serves selector - multi-select -->
+                  <div style="display:flex;gap:8px;padding-left:22px;margin-bottom:12px;" class="highlight-new">
+                    <span style="position:absolute;display:none;"></span>
+                    <label style="display:flex;align-items:center;gap:5px;padding:6px 12px;border:1.5px solid #1890ff;border-radius:6px;font-size:12px;font-weight:600;background:#e6f7ff;color:#1890ff;cursor:pointer;">
+                      <input type="checkbox" checked /> S1
+                    </label>
+                    <label style="display:flex;align-items:center;gap:5px;padding:6px 12px;border:1.5px solid #d9d9d9;border-radius:6px;font-size:12px;font-weight:600;background:#fff;color:#666;cursor:pointer;">
+                      <input type="checkbox" /> S2
+                    </label>
+                    <label style="display:flex;align-items:center;gap:5px;padding:6px 12px;border:1.5px solid #1890ff;border-radius:6px;font-size:12px;font-weight:600;background:#e6f7ff;color:#1890ff;cursor:pointer;">
+                      <input type="checkbox" checked /> S3
+                    </label>
+                    <label style="display:flex;align-items:center;gap:5px;padding:6px 12px;border:1.5px solid #d9d9d9;border-radius:6px;font-size:12px;font-weight:600;background:#fff;color:#666;cursor:pointer;">
+                      <input type="checkbox" /> S4
+                    </label>
+                  </div>
+                  <div style="padding-left:22px;display:flex;gap:8px;flex-wrap:wrap;">
+                    <button class="btn btn-ghost btn-sm" style="display:flex;align-items:center;gap:6px;opacity:0.5;" title="Available when menu is approved">
+                      🧪 Generate Testing Sheet
+                    </button>
+                    <button class="btn btn-default btn-sm" style="display:flex;align-items:center;gap:6px;opacity:0.5;" title="Linked to Testing Sheet">
+                      📦 Generate Portioning Sheet
+                    </button>
+                    <span style="font-size:11px;color:#aaa;align-self:center;">Available at menu approval</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotation-notes">
+      <div class="annotation-note note-change">
+        <strong>Tab bar — 5 tabs now</strong>
+        Added "Ingredients" and "Method" as top-level tabs. This de-clutters the Recipe tab which was previously overwhelming.
+      </div>
+      <div class="annotation-note note-change">
+        <strong>Recipe tab — simplified</strong>
+        Recipe tab now only contains: Planner assignment, Cost overview cards, Dish name/category/protein, Description, Tags, and Test/Shoot flags.
+      </div>
+      <div class="annotation-note">
+        <strong>Cost cards — keep</strong>
+        The 3 cost summary cards (JHB, CPT, Avg) stay on the Recipe tab as a persistent summary — not moved to Costing screen.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>📸 Shoot flag — always S2</strong>
+        When a dish is flagged for shoot, it always uses Serves 2 (S2) quantities. The "Generate Shoot Order List" button creates a procurement order in the same format as existing order lists.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>🧪 Test flag — flexible serves</strong>
+        Chefs select which serves to test — any combination of S1, S2, S3, S4 is valid. At menu approval, "Generate Testing Sheet" and "Generate Portioning Sheet" become active.
+      </div>
+      <div class="annotation-note note-change">
+        <strong>Portioning Sheet</strong>
+        The Portioning Sheet (used for mock bagging) is derived from the same Testing Sheet / Testing Order List — not a separate data entry.
+      </div>
+    </div>
+  </div>
+
+  <!-- 2b: Ingredients tab -->
+  <p style="font-weight:700;font-size:13px;margin-bottom:12px;color:#1a1a2e;">2b — Ingredients tab (new dedicated tab)</p>
+  <div class="annotation-row">
+    <div class="annotation-screen">
+      <div class="mockup-outer">
+        <div class="frame-label">
+          <span class="frame-num">2b</span>
+          Recipe Writing — Ingredients Tab (NEW)
+        </div>
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sidebar-logo">UCOOK</div>
+            <div class="sidebar-item section-head">Recipe Creation</div>
+            <div class="sidebar-item">💡 Brainstorm</div>
+            <div class="sidebar-item">📅 Planner</div>
+            <div class="sidebar-item active">✏️ Recipe Writing</div>
+            <div class="sidebar-item">💰 Costing</div>
+          </div>
+          <div class="main-content">
+            <div class="page-header">
+              <h2>✏️ Chicken Mince Salad</h2>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-default btn-sm">Export</button>
+                <button class="btn btn-default btn-sm">Import</button>
+                <button class="btn btn-primary btn-sm">💾 Save Draft</button>
+              </div>
+            </div>
+            <div class="tabs">
+              <div class="tab">📋 Recipe</div>
+              <div class="tab active">🧂 Ingredients <span class="tab-count">3</span></div>
+              <div class="tab">📖 Method <span class="tab-count">0</span></div>
+              <div class="tab">📝 Details</div>
+              <div class="tab">❤️ Nutrition</div>
+            </div>
+            <div class="page-body">
+              <div class="card">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                  <strong style="font-size:14px;">🧂 Ingredients</strong>
+                  <div style="display:flex;gap:8px;align-items:center;">
+                    <input style="border:1px solid #d9d9d9;border-radius:6px;padding:6px 12px;font-size:12px;width:200px;" placeholder="Search ingredient…" />
+                    <button class="btn btn-primary btn-sm">+ Add Row</button>
+                  </div>
+                </div>
+
+                <!-- Ingredients table - improved with 4 SKU columns clearly marked -->
+                <div style="overflow-x:auto;">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th style="min-width:180px;">Ingredient</th>
+                        <th>Category</th>
+                        <th>UOM</th>
+                        <th class="sku-header">S1</th>
+                        <th class="sku-header">S2</th>
+                        <th class="sku-header">S3</th>
+                        <th class="sku-header">S4</th>
+                        <th>R/unit JHB</th>
+                        <th>R/unit CPT</th>
+                        <th>Cost JHB</th>
+                        <th>Cost CPT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Chicken Mince</strong></td>
+                        <td><span class="badge badge-orange" style="font-size:10px;">Protein</span></td>
+                        <td>g</td>
+                        <td class="td-muted" style="background:#f0f7ff;"><input class="ing-input" value="150" /></td>
+                        <td class="td-muted" style="background:#f0f7ff;"><input class="ing-input" value="250" /></td>
+                        <td class="td-muted" style="background:#f0f7ff;"><input class="ing-input" value="300" /></td>
+                        <td class="td-muted" style="background:#f0f7ff;"><input class="ing-input" value="400" /></td>
+                        <td class="td-muted">R45.00</td>
+                        <td class="td-muted">R46.00</td>
+                        <td>R6.75</td>
+                        <td>R11.50</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Salad Leaves</strong></td>
+                        <td><span class="badge badge-green" style="font-size:10px;">Produce</span></td>
+                        <td>g</td>
+                        <td style="background:#f0f7ff;"><input class="ing-input" value="40" /></td>
+                        <td style="background:#f0f7ff;"><input class="ing-input" value="60" /></td>
+                        <td style="background:#f0f7ff;"><input class="ing-input" value="80" /></td>
+                        <td style="background:#f0f7ff;"><input class="ing-input" value="80" /></td>
+                        <td class="td-muted">R12.00</td>
+                        <td class="td-muted">R12.50</td>
+                        <td>R0.48</td>
+                        <td>R0.75</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Sesame Dressing</strong></td>
+                        <td><span class="badge badge-blue" style="font-size:10px;">Sauce</span></td>
+                        <td>ml</td>
+                        <td style="background:#f0f7ff;"><input class="ing-input" value="30" /></td>
+                        <td style="background:#f0f7ff;"><input class="ing-input" value="45" /></td>
+                        <td style="background:#f0f7ff;"><input class="ing-input" value="60" /></td>
+                        <td style="background:#f0f7ff;"><input class="ing-input" value="60" /></td>
+                        <td class="td-muted">R8.00</td>
+                        <td class="td-muted">R8.00</td>
+                        <td>R0.24</td>
+                        <td>R0.36</td>
+                      </tr>
+                      <tr>
+                        <td colspan="11" style="text-align:center;padding:12px;color:#bbb;font-size:12px;">
+                          + Add Row
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <!-- Notes area -->
+                <div style="margin-top:16px;padding-top:16px;border-top:1px solid #f0f0f0;">
+                  <label style="font-size:11px;font-weight:600;color:#888;text-transform:uppercase;letter-spacing:0.5px;">Ingredient statement / general notes</label>
+                  <textarea style="width:100%;margin-top:6px;border:1px solid #d9d9d9;border-radius:6px;padding:10px;font-size:13px;min-height:60px;" placeholder="Compound ingredients notes, allergen declarations…"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotation-notes">
+      <div class="annotation-note note-new">
+        <strong>Ingredients as own tab</strong>
+        Ingredients moved out of the main scrollable page into a dedicated tab — gives it full breathing room.
+      </div>
+      <div class="annotation-note note-change">
+        <strong>4 SKU columns highlighted</strong>
+        S1, S2, S3, S4 columns are visually grouped with a light blue background to signal they are the "quantity per serving size" columns. This addresses the feedback that the section must "accommodate four SKU columns."
+      </div>
+      <div class="annotation-note note-change">
+        <strong>Input is fixed</strong>
+        Each SKU cell is an editable input field. The previous prototype had broken input in the ingredients section — this resolves it.
+      </div>
+      <div class="annotation-note">
+        <strong>Notes area — moved here</strong>
+        The ingredient statement/compound ingredients notes textarea is now directly within the Ingredients tab, not floating at the page bottom.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 3 — RECIPE WRITING: METHOD TAB
+══════════════════════════════════════════════════════ -->
+<hr class="divider" style="margin: 0 60px;">
+
+<div class="section-wrap">
+  <div class="section-label">Screen 3 of 4 · UPDATED SCREEN</div>
+  <div class="section-title">Recipe Writing — Method Tab</div>
+  <div class="section-desc">
+    The Method section has two issues: (1) search currently searches through SKUs instead of method steps, and (2) there's no way to copy/duplicate steps for different serving sizes. Both are fixed here, and Method gets its own tab.
+  </div>
+  <div class="chips">
+    <span class="chip chip-new">Method as own tab</span>
+    <span class="chip chip-change">Search fixed — steps, not SKUs</span>
+    <span class="chip chip-new">Copy steps to S3 &amp; S4</span>
+  </div>
+
+  <div class="annotation-row">
+    <div class="annotation-screen">
+      <div class="mockup-outer">
+        <div class="frame-label">
+          <span class="frame-num">3</span>
+          Recipe Writing — Method Tab (UPDATED)
+        </div>
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sidebar-logo">UCOOK</div>
+            <div class="sidebar-item section-head">Recipe Creation</div>
+            <div class="sidebar-item">💡 Brainstorm</div>
+            <div class="sidebar-item">📅 Planner</div>
+            <div class="sidebar-item active">✏️ Recipe Writing</div>
+            <div class="sidebar-item">💰 Costing</div>
+          </div>
+          <div class="main-content">
+            <div class="page-header">
+              <h2>✏️ Chicken Mince Salad</h2>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-default btn-sm">Export</button>
+                <button class="btn btn-default btn-sm">Import</button>
+                <button class="btn btn-primary btn-sm">💾 Save Draft</button>
+              </div>
+            </div>
+            <div class="tabs">
+              <div class="tab">📋 Recipe</div>
+              <div class="tab">🧂 Ingredients <span class="tab-count">3</span></div>
+              <div class="tab active">📖 Method <span class="tab-count">3</span></div>
+              <div class="tab">📝 Details</div>
+              <div class="tab">❤️ Nutrition</div>
+            </div>
+            <div class="page-body">
+
+              <!-- S1 & S2 Method -->
+              <div class="card" style="margin-bottom:16px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <strong style="font-size:14px;">📖 Method</strong>
+                    <span class="badge badge-blue">S1 &amp; S2</span>
+                    <span class="badge badge-green" style="font-size:10px;">3 steps</span>
+                  </div>
+                  <div style="display:flex;gap:8px;align-items:center;">
+                    <!-- Fixed search -->
+                    <div class="highlight-change" style="position:relative;">
+                      <span style="position:absolute;top:-12px;right:0;background:#e17b2f;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;white-space:nowrap;">FIXED: searches steps</span>
+                      <input style="border:1px solid #d9d9d9;border-radius:6px;padding:6px 10px;font-size:12px;width:180px;" placeholder="Search method steps…" />
+                    </div>
+                    <button class="btn btn-primary btn-sm">+ Add Step</button>
+                  </div>
+                </div>
+
+                <div class="step-row">
+                  <div class="step-num">1</div>
+                  <div class="step-content">Heat oil in a pan over medium-high heat. Add the chicken mince and cook for 6–8 minutes until cooked through, breaking up with a spoon.</div>
+                  <div class="step-actions">
+                    <button class="btn btn-default btn-sm" title="Edit">✎</button>
+                    <button class="btn btn-default btn-sm highlight-new" style="position:relative;" title="Duplicate to S3&S4">
+                      <span style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:#1890ff;color:#fff;font-size:8px;font-weight:700;padding:2px 5px;border-radius:3px;white-space:nowrap;">NEW</span>
+                      ⧉ Copy
+                    </button>
+                    <button class="btn btn-default btn-sm" style="color:#ff4d4f;" title="Delete">🗑</button>
+                  </div>
+                </div>
+                <div class="step-row">
+                  <div class="step-num">2</div>
+                  <div class="step-content">Toss salad leaves with sesame dressing in a large bowl. Season with salt and pepper.</div>
+                  <div class="step-actions">
+                    <button class="btn btn-default btn-sm">✎</button>
+                    <button class="btn btn-default btn-sm">⧉ Copy</button>
+                    <button class="btn btn-default btn-sm" style="color:#ff4d4f;">🗑</button>
+                  </div>
+                </div>
+                <div class="step-row">
+                  <div class="step-num">3</div>
+                  <div class="step-content">Serve the warm chicken mince over the dressed salad leaves. Garnish with sesame seeds.</div>
+                  <div class="step-actions">
+                    <button class="btn btn-default btn-sm">✎</button>
+                    <button class="btn btn-default btn-sm">⧉ Copy</button>
+                    <button class="btn btn-default btn-sm" style="color:#ff4d4f;">🗑</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- S3 & S4 — with copy all button -->
+              <div class="card">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                  <div style="display:flex;align-items:center;gap:10px;">
+                    <strong style="font-size:14px;">📖 Method</strong>
+                    <span class="badge badge-orange">S3 &amp; S4</span>
+                    <span class="badge badge-gray" style="font-size:10px;">0 steps</span>
+                  </div>
+                  <div style="display:flex;gap:8px;align-items:center;" class="highlight-new">
+                    <button class="btn btn-ghost btn-sm" style="position:relative;">
+                      <span style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:#1890ff;color:#fff;font-size:8px;font-weight:700;padding:2px 5px;border-radius:3px;white-space:nowrap;">NEW</span>
+                      ⧉ Copy all steps from S1 &amp; S2
+                    </button>
+                    <button class="btn btn-primary btn-sm">+ Add Step</button>
+                  </div>
+                </div>
+                <div class="empty-state" style="padding:32px;">
+                  <div class="empty-icon">📄</div>
+                  <p style="color:#aaa;font-size:13px;">No S3 &amp; S4 method steps yet.<br/>Add steps here if they differ from S1 &amp; S2, or use "Copy all steps" to start from S1 &amp; S2.</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotation-notes">
+      <div class="annotation-note note-change">
+        <strong>Search fixed</strong>
+        Previously searched through SKUs — now searches method steps text. Placeholder updated to "Search method steps…" to make this clear.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>Copy individual step</strong>
+        Each step row now has a "⧉ Copy" button. Clicking it copies that specific step to the S3 &amp; S4 section. Useful when most steps are the same but one differs.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>"Copy all steps from S1 &amp; S2"</strong>
+        A bulk action at the top of the S3 &amp; S4 section — copies all S1 &amp; S2 steps over in one click. User can then edit only the steps that differ.
+      </div>
+      <div class="annotation-note">
+        <strong>Method in own tab</strong>
+        Moving Method here frees up the main Recipe tab and makes each section easier to navigate and reason about.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 4 — BRAINSTORM: TWO-TAB REDESIGN
+══════════════════════════════════════════════════════ -->
+<hr class="divider" style="margin: 0 60px;">
+
+<div class="section-wrap">
+  <div class="section-label">Screen 4 of 4 · UPDATED SCREEN</div>
+  <div class="section-title">Brainstorm — Protein Map + Ideas Tabs</div>
+  <div class="section-desc">
+    The Brainstorm screen needs to be restructured into two tabs: a "Protein Map" showing which proteins are assigned to which weeks/quarters, and an "Ideas" tab where chefs can add dish ideas using that protein map as a guide. The form also needs richer fields — chef name, ingredient rough list, and a promote-to-draft action.
+  </div>
+  <div class="chips">
+    <span class="chip chip-new">Protein Map tab</span>
+    <span class="chip chip-change">Ideas tab (replaces current form)</span>
+    <span class="chip chip-new">Chef field</span>
+    <span class="chip chip-new">Ingredient list (max 15)</span>
+    <span class="chip chip-new">Promote to Draft action</span>
+  </div>
+
+  <!-- Tab 1: Protein Map -->
+  <p style="font-weight:700;font-size:13px;margin-bottom:12px;color:#1a1a2e;">4a — Brainstorm / Protein Map tab</p>
+  <div class="annotation-row">
+    <div class="annotation-screen">
+      <div class="mockup-outer">
+        <div class="frame-label">
+          <span class="frame-num">4a</span>
+          Brainstorm — Protein Map Tab (NEW)
+        </div>
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sidebar-logo">UCOOK</div>
+            <div class="sidebar-item section-head">Recipe Creation</div>
+            <div class="sidebar-item active">💡 Brainstorm</div>
+            <div class="sidebar-item">📅 Planner</div>
+            <div class="sidebar-item">✏️ Recipe Writing</div>
+            <div class="sidebar-item">💰 Costing</div>
+          </div>
+          <div class="main-content">
+            <div class="page-header">
+              <h2>💡 Brainstorm</h2>
+              <div style="display:flex;gap:8px;align-items:center;">
+                <span style="font-size:12px;color:#888;">Q2 · 2026</span>
+                <button class="btn btn-primary btn-sm">+ Add Protein</button>
+              </div>
+            </div>
+
+            <!-- Two tabs for brainstorm -->
+            <div class="tabs highlight-new" style="position:relative;">
+              <span class="highlight-note">NEW STRUCTURE</span>
+              <div class="tab active">🗺️ Protein Map</div>
+              <div class="tab">💡 Ideas <span class="tab-count">1</span></div>
+            </div>
+
+            <div class="page-body">
+              <!-- Week nav -->
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+                <span style="font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;">Quarter</span>
+                <div style="display:flex;gap:6px;">
+                  <span class="protein-pill inactive">Q1</span>
+                  <span class="protein-pill active">Q2</span>
+                  <span class="protein-pill inactive">Q3</span>
+                  <span class="protein-pill inactive">Q4</span>
+                </div>
+              </div>
+
+              <!-- Protein map table -->
+              <div class="card" style="overflow-x:auto;padding:0;">
+                <table class="protein-table">
+                  <thead>
+                    <tr>
+                      <th class="row-header" style="width:80px;">Category</th>
+                      <th>W1<br/><span style="font-weight:400;color:#bbb;font-size:10px;">30 Mar</span></th>
+                      <th>W2<br/><span style="font-weight:400;color:#bbb;font-size:10px;">6 Apr</span></th>
+                      <th>W3<br/><span style="font-weight:400;color:#bbb;font-size:10px;">13 Apr</span></th>
+                      <th>W4<br/><span style="font-weight:400;color:#bbb;font-size:10px;">20 Apr</span></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="row-header">Adventurous Foodie</td>
+                      <td><span class="protein-tag pt-chicken">Chicken</span><span class="protein-tag pt-fish">Fish</span></td>
+                      <td><span class="protein-tag pt-beef">Beef</span><span class="protein-tag pt-veggie">Veggie</span></td>
+                      <td><span class="protein-tag pt-lamb">Lamb</span></td>
+                      <td><span class="protein-tag pt-pork">Pork</span><span class="protein-tag pt-chicken">Chicken</span></td>
+                    </tr>
+                    <tr>
+                      <td class="row-header">Comfort Food</td>
+                      <td><span class="protein-tag pt-beef">Beef</span></td>
+                      <td><span class="protein-tag pt-chicken">Chicken</span><span class="protein-tag pt-pork">Pork</span></td>
+                      <td><span class="protein-tag pt-fish">Fish</span></td>
+                      <td><span class="protein-tag pt-lamb">Lamb</span></td>
+                    </tr>
+                    <tr>
+                      <td class="row-header">Quick &amp; Easy</td>
+                      <td><span class="protein-tag pt-chicken">Chicken</span></td>
+                      <td><span class="protein-tag pt-fish">Fish</span></td>
+                      <td><span class="protein-tag pt-beef">Beef</span><span class="protein-tag pt-veggie">Veggie</span></td>
+                      <td><span class="protein-tag pt-chicken">Chicken</span></td>
+                    </tr>
+                    <tr>
+                      <td class="row-header">Plant-Based</td>
+                      <td><span class="protein-tag pt-veggie">Legumes</span></td>
+                      <td><span class="protein-tag pt-veggie">Tofu</span></td>
+                      <td><span class="protein-tag pt-veggie">Veggie</span></td>
+                      <td><span class="protein-tag pt-veggie">Legumes</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- S1 vs S2 open decision banner -->
+              <div class="highlight-change" style="position:relative;background:#fffbf0;border:1.5px solid #ffe58f;border-radius:8px;padding:14px 16px;margin-top:12px;">
+                <span style="position:absolute;top:-12px;right:0;background:#e17b2f;color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;">OPEN QUESTION — Kate's feedback</span>
+                <div style="display:flex;align-items:flex-start;gap:12px;">
+                  <div style="font-size:20px;margin-top:2px;">⚠️</div>
+                  <div>
+                    <strong style="font-size:13px;color:#5d4037;display:block;margin-bottom:6px;">S1 vs S2 as the base SKU for Protein Mapping</strong>
+                    <p style="font-size:12px;color:#6d4c41;line-height:1.6;margin-bottom:8px;">
+                      Currently, the food team does protein mapping on <strong>Serves 1 (S1)</strong>. The proposal is to switch the base to <strong>Serves 2 (S2)</strong> — this would then flow automatically through the entire recipe creation process (Brainstorm → Recipe Writing → Costing).
+                    </p>
+                    <div style="display:flex;gap:12px;font-size:12px;flex-wrap:wrap;">
+                      <div style="background:#f6ffed;border:1px solid #b7eb8f;border-radius:6px;padding:8px 12px;flex:1;min-width:160px;">
+                        <strong style="color:#389e0d;display:block;margin-bottom:3px;">Option A — S2 base (proposed)</strong>
+                        <span style="color:#555;">S2 SKU set in protein map → auto-populates recipe writing. Clean flow, consistent with shoot quantities.</span>
+                      </div>
+                      <div style="background:#fff1f0;border:1px solid #ffa39e;border-radius:6px;padding:8px 12px;flex:1;min-width:160px;">
+                        <strong style="color:#cf1322;display:block;margin-bottom:3px;">Option B — S1 base (current)</strong>
+                        <span style="color:#555;">Everything starts on S1. Depends on where Cornell sources his costing information — if from S1, this must stay.</span>
+                      </div>
+                    </div>
+                    <div style="margin-top:10px;background:#fff;border:1px dashed #d46b08;border-radius:6px;padding:8px 12px;font-size:12px;color:#d46b08;">
+                      🔍 <strong>Clarification needed:</strong> Confirm with Cornell where his costing data originates. If S1-based → use Option B. If S2 is fine → proceed with Option A.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div style="margin-top:12px;font-size:12px;color:#888;">
+                ℹ️ This protein map is used as a guide when adding dish ideas on the Ideas tab. Multiple chefs can add ideas for any protein in a given week.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotation-notes">
+      <div class="annotation-note note-new">
+        <strong>Protein Map tab</strong>
+        New tab showing proteins assigned per category per week. This is the reference guide that chefs use when brainstorming — they see what proteins are available for each week before adding dish ideas.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>Quarter toggle</strong>
+        Filter protein map by quarter (Q1–Q4). Weeks and dates update accordingly.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>Colour-coded protein tags</strong>
+        Each protein type has a distinct colour tag so chefs can scan the grid at a glance.
+      </div>
+      <div class="annotation-note note-change">
+        <strong>⚠️ Open: S1 vs S2 base SKU</strong>
+        Kate's proposal: switch protein mapping from S1 to S2. S2 is used for shoot orders (always fixed). Needs confirmation from Cornell re: where his costing data comes from before implementing.
+      </div>
+      <div class="annotation-note">
+        <strong>Editability</strong>
+        "+ Add Protein" button allows admins to assign proteins to weeks. In-cell editing can be added later.
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 2: Ideas -->
+  <p style="font-weight:700;font-size:13px;margin-bottom:12px;color:#1a1a2e;">4b — Brainstorm / Ideas tab (updated form)</p>
+  <div class="annotation-row">
+    <div class="annotation-screen">
+      <div class="mockup-outer">
+        <div class="frame-label">
+          <span class="frame-num">4b</span>
+          Brainstorm — Ideas Tab (UPDATED)
+        </div>
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sidebar-logo">UCOOK</div>
+            <div class="sidebar-item section-head">Recipe Creation</div>
+            <div class="sidebar-item active">💡 Brainstorm</div>
+            <div class="sidebar-item">📅 Planner</div>
+            <div class="sidebar-item">✏️ Recipe Writing</div>
+            <div class="sidebar-item">💰 Costing</div>
+          </div>
+          <div class="main-content">
+            <div class="page-header">
+              <h2>💡 Brainstorm</h2>
+              <span style="font-size:12px;color:#888;">Q2W1 · CW14 · 30 Mar – 5 Apr</span>
+            </div>
+            <div class="tabs">
+              <div class="tab">🗺️ Protein Map</div>
+              <div class="tab active">💡 Ideas <span class="tab-count">1</span></div>
+            </div>
+            <div class="page-body">
+              <!-- Week nav -->
+              <div style="background:#fff;border:1px solid #e8e8e8;border-radius:8px;padding:10px 16px;margin-bottom:16px;display:flex;align-items:center;gap:12px;">
+                <button class="btn btn-default btn-sm">‹</button>
+                <strong style="font-size:14px;">Q2W1</strong>
+                <button class="btn btn-default btn-sm">›</button>
+                <span style="color:#888;font-size:12px;">CW14 · 30 Mar – 5 Apr</span>
+                <button class="btn btn-ghost btn-sm" style="margin-left:auto;">This week</button>
+              </div>
+
+              <!-- Add idea form — expanded with new fields -->
+              <div class="card highlight-change" style="margin-bottom:16px;position:relative;">
+                <span style="position:absolute;top:-12px;right:0;background:#e17b2f;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.5px;">UPDATED FORM</span>
+                <strong style="font-size:14px;display:block;margin-bottom:14px;">Add an idea for Q2W1</strong>
+                <div class="field-row">
+                  <div class="field" style="flex:2;">
+                    <label>Dish name *</label>
+                    <input placeholder="e.g. Thai Basil Chicken…" />
+                  </div>
+                  <div class="field">
+                    <label>Category *</label>
+                    <select>
+                      <option>Adventurous Foodie</option>
+                      <option>Comfort Food</option>
+                    </select>
+                  </div>
+                  <div class="field highlight-new" style="position:relative;">
+                    <span style="position:absolute;top:-12px;right:0;background:#1890ff;color:#fff;font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;">NEW</span>
+                    <label>Chef *</label>
+                    <select>
+                      <option>Select chef…</option>
+                      <option>Masechaba</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="field-row">
+                  <div class="field" style="flex:2;">
+                    <label>Link / reference (optional)</label>
+                    <input placeholder="https://…" />
+                    <span class="field-hint">Link to an inspiration dish or recipe reference</span>
+                  </div>
+                  <div class="field">
+                    <label>Notes (optional)</label>
+                    <input placeholder="Any extra notes…" />
+                  </div>
+                </div>
+
+                <!-- Ingredients rough list - NEW -->
+                <div class="highlight-new" style="position:relative;border:1px dashed #91d5ff;border-radius:8px;padding:14px;margin-top:8px;">
+                  <span style="position:absolute;top:-12px;left:12px;background:#1890ff;color:#fff;font-size:9px;font-weight:700;padding:2px 8px;border-radius:4px;">NEW — Rough ingredients list</span>
+                  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
+                    <span style="font-size:12px;color:#666;">Add up to 15 key ingredients</span>
+                    <span style="font-size:11px;color:#1890ff;font-weight:600;">0 / 15</span>
+                  </div>
+                  <div style="display:flex;gap:8px;">
+                    <input style="flex:1;border:1px solid #d9d9d9;border-radius:6px;padding:7px 10px;font-size:12px;" placeholder="e.g. Chicken thighs, Thai basil, fish sauce…" />
+                    <button class="btn btn-default btn-sm">+ Add</button>
+                  </div>
+                  <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
+                    <span style="background:#f0f7ff;border:1px solid #91d5ff;color:#1890ff;padding:3px 10px;border-radius:12px;font-size:11px;display:flex;align-items:center;gap:4px;">Chicken thighs <button style="background:none;border:none;color:#aaa;cursor:pointer;font-size:10px;">✕</button></span>
+                    <span style="background:#f0f7ff;border:1px solid #91d5ff;color:#1890ff;padding:3px 10px;border-radius:12px;font-size:11px;display:flex;align-items:center;gap:4px;">Thai basil <button style="background:none;border:none;color:#aaa;cursor:pointer;font-size:10px;">✕</button></span>
+                  </div>
+                </div>
+
+                <div style="margin-top:14px;display:flex;justify-content:flex-end;">
+                  <button class="btn btn-primary">+ Add Idea</button>
+                </div>
+              </div>
+
+              <!-- Existing idea card -->
+              <div style="margin-bottom:8px;font-size:11px;font-weight:700;color:#888;text-transform:uppercase;letter-spacing:1px;">Adventurous Foodie · 1 idea</div>
+              <div class="card card-tight" style="border-left:3px solid #1890ff;">
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+                  <div>
+                    <strong style="font-size:14px;">Chicken Mince Salad</strong>
+                    <span class="badge badge-green" style="margin-left:8px;">✓ Draft created</span>
+                  </div>
+                  <div style="display:flex;gap:6px;">
+                    <button class="btn btn-default btn-sm">✎</button>
+                    <button class="btn btn-default btn-sm" style="color:#ff4d4f;">🗑</button>
+                  </div>
+                </div>
+                <div style="margin-top:6px;font-size:12px;color:#888;">
+                  <a style="color:#1890ff;" href="#">https://www.bbcgoodfood.com/recipes/thai-minced-chicken-salad</a>
+                </div>
+                <div style="margin-top:4px;font-size:11px;color:#aaa;">Added by Masechaba · 30 Mar</div>
+
+                <!-- Ingredients chips -->
+                <div style="margin-top:8px;display:flex;gap:5px;flex-wrap:wrap;" class="highlight-new">
+                  <span style="position:relative;">
+                    <span style="position:absolute;top:-14px;left:0;background:#1890ff;color:#fff;font-size:8px;font-weight:700;padding:1px 5px;border-radius:3px;white-space:nowrap;">NEW</span>
+                  </span>
+                  <span class="protein-tag pt-chicken">Chicken mince</span>
+                  <span class="protein-tag pt-veggie">Salad leaves</span>
+                  <span class="protein-tag" style="background:#f5f5f5;color:#666;">Sesame dressing</span>
+                  <span class="protein-tag" style="background:#f5f5f5;color:#666;">Spring onion</span>
+                </div>
+
+                <!-- Promote to draft - NEW -->
+                <div style="margin-top:10px;padding-top:10px;border-top:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;">
+                  <span style="font-size:11px;color:#52c41a;">✓ Draft exists — open in Recipe Writing</span>
+                  <button class="btn btn-ghost btn-sm">Open Draft →</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="annotation-notes">
+      <div class="annotation-note note-new">
+        <strong>Chef field</strong>
+        Per the review: "a chef needs to be specified" for each dish idea. Dropdown of available chefs replaces the freetext "Your name" field.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>Ingredient rough list (max 15)</strong>
+        Chefs can add up to 15 key ingredients as tags during brainstorming. These appear as chips on the idea card and are carried forward when the idea is promoted to a draft.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>Promote to Draft / Open Draft</strong>
+        Once an idea has a draft, the idea card shows a status link "Open Draft →" to jump directly into Recipe Writing. Before a draft exists, a "Promote to Draft" CTA is shown instead.
+      </div>
+      <div class="annotation-note note-change">
+        <strong>Ideas grouped by protein</strong>
+        Ideas tab groups dish ideas by protein (matching the Protein Map), making it easy to see if a given protein is under- or over-represented for a given week.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SCREEN 5 — DOCUMENT GENERATION (Shoot Order List, Testing Sheet, Portioning Sheet)
+══════════════════════════════════════════════════════ -->
+<hr class="divider" style="margin: 0 60px;">
+
+<div class="section-wrap">
+  <div class="section-label">Screen 5 of 5 · NEW SCREEN</div>
+  <div class="section-title">Recipe Writing — Generated Documents</div>
+  <div class="section-desc">
+    Three procurement/operations documents are generated from the recipe writing screen, each triggered by different flags. The Shoot Order List fires immediately when a dish is marked for shoot. The Testing Sheet and Portioning Sheet become available once the menu is approved at the end of costing.
+  </div>
+  <div class="chips">
+    <span class="chip chip-new">Shoot Order List (S2 fixed)</span>
+    <span class="chip chip-new">Testing Sheet (flexible serves)</span>
+    <span class="chip chip-new">Portioning Sheet (from Testing Sheet)</span>
+  </div>
+
+  <div class="annotation-row">
+    <div class="annotation-screen">
+      <div class="mockup-outer">
+        <div class="frame-label">
+          <span class="frame-num">5</span>
+          Generated Documents — Shoot Order List &amp; Testing Sheet (NEW)
+        </div>
+        <div class="app-shell">
+          <div class="sidebar">
+            <div class="sidebar-logo">UCOOK</div>
+            <div class="sidebar-item section-head">Recipe Creation</div>
+            <div class="sidebar-item">💡 Brainstorm</div>
+            <div class="sidebar-item">📅 Planner</div>
+            <div class="sidebar-item active">✏️ Recipe Writing</div>
+            <div class="sidebar-item">💰 Costing</div>
+          </div>
+          <div class="main-content">
+            <div class="page-header">
+              <h2>📋 Generated Documents</h2>
+              <div style="display:flex;gap:8px;">
+                <button class="btn btn-default btn-sm">← Back to Recipe</button>
+              </div>
+            </div>
+            <div class="page-body">
+
+              <!-- Document selector tabs -->
+              <div style="display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;">
+                <div style="border:2px solid #1890ff;border-radius:8px;padding:10px 18px;cursor:pointer;background:#e6f7ff;">
+                  <div style="font-size:12px;font-weight:700;color:#1890ff;">📸 Shoot Order List</div>
+                  <div style="font-size:10px;color:#1890ff;margin-top:2px;">Serves 2 only · Ready now</div>
+                </div>
+                <div style="border:2px solid #d9d9d9;border-radius:8px;padding:10px 18px;cursor:pointer;background:#fff;">
+                  <div style="font-size:12px;font-weight:700;color:#888;">🧪 Testing Sheet</div>
+                  <div style="font-size:10px;color:#aaa;margin-top:2px;">S1 + S3 selected · Available at approval</div>
+                </div>
+                <div style="border:2px solid #d9d9d9;border-radius:8px;padding:10px 18px;cursor:pointer;background:#fff;">
+                  <div style="font-size:12px;font-weight:700;color:#888;">📦 Portioning Sheet</div>
+                  <div style="font-size:10px;color:#aaa;margin-top:2px;">From Testing Sheet · Available at approval</div>
+                </div>
+              </div>
+
+              <!-- Shoot Order List document preview -->
+              <div class="card" style="border-top:4px solid #1890ff;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                  <div>
+                    <div style="font-size:16px;font-weight:700;">📸 Shoot Order List</div>
+                    <div style="font-size:12px;color:#888;margin-top:2px;">Chicken Mince Salad · Q2W1 · Adventurous Foodie</div>
+                  </div>
+                  <div style="display:flex;gap:8px;">
+                    <button class="btn btn-default btn-sm">🖨️ Print</button>
+                    <button class="btn btn-primary btn-sm">⬇️ Export</button>
+                  </div>
+                </div>
+
+                <!-- Document header info -->
+                <div style="background:#f0f7ff;border-radius:6px;padding:10px 14px;margin-bottom:14px;display:flex;gap:24px;font-size:12px;">
+                  <div><span style="color:#888;">Dish:</span> <strong>Chicken Mince Salad</strong></div>
+                  <div><span style="color:#888;">Week:</span> <strong>Q2W1</strong></div>
+                  <div><span style="color:#888;">Serves:</span> <strong style="color:#1890ff;">S2 (fixed)</strong></div>
+                  <div><span style="color:#888;">Type:</span> <strong>Shoot</strong></div>
+                  <div><span style="color:#888;">Date:</span> <strong>14 Apr 2026</strong></div>
+                </div>
+
+                <!-- Order table -->
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Ingredient</th>
+                      <th>SKU / Code</th>
+                      <th>UOM</th>
+                      <th style="text-align:right;">S2 Qty</th>
+                      <th>Supplier</th>
+                      <th>Notes</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Chicken Mince</strong></td>
+                      <td style="font-family:monospace;font-size:11px;color:#888;">SKU-CHK-001</td>
+                      <td>g</td>
+                      <td style="text-align:right;font-weight:700;color:#1890ff;">250g</td>
+                      <td style="color:#888;font-size:12px;">Local supplier</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Salad Leaves</strong></td>
+                      <td style="font-family:monospace;font-size:11px;color:#888;">SKU-PRD-042</td>
+                      <td>g</td>
+                      <td style="text-align:right;font-weight:700;color:#1890ff;">60g</td>
+                      <td style="color:#888;font-size:12px;">Fresh produce</td>
+                      <td></td>
+                    </tr>
+                    <tr>
+                      <td><strong>Sesame Dressing</strong></td>
+                      <td style="font-family:monospace;font-size:11px;color:#888;">SKU-SOS-017</td>
+                      <td>ml</td>
+                      <td style="text-align:right;font-weight:700;color:#1890ff;">45ml</td>
+                      <td style="color:#888;font-size:12px;">Condiments</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div style="margin-top:12px;padding:10px 14px;background:#f6ffed;border-radius:6px;font-size:12px;color:#389e0d;">
+                  ✓ All quantities are <strong>Serves 2 (S2) only</strong>. This order is for the shoot procurement team.
+                </div>
+              </div>
+
+              <!-- Testing Sheet preview (collapsed/greyed) -->
+              <div class="card" style="border-top:4px solid #faad14;opacity:0.7;margin-top:16px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
+                  <div>
+                    <div style="font-size:16px;font-weight:700;">🧪 Testing Sheet / Testing Order List</div>
+                    <div style="font-size:12px;color:#888;margin-top:2px;">Serves selected: <strong>S1, S3</strong> · Available when menu is approved</div>
+                  </div>
+                  <span class="badge badge-orange">Pending approval</span>
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Ingredient</th>
+                      <th>SKU</th>
+                      <th>UOM</th>
+                      <th style="text-align:right;background:#fff7e6;">S1 Qty</th>
+                      <th style="text-align:right;background:#e6f7ff;" class="sku-header">S3 Qty</th>
+                      <th>Supplier</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Chicken Mince</strong></td>
+                      <td style="font-family:monospace;font-size:11px;color:#888;">SKU-CHK-001</td>
+                      <td>g</td>
+                      <td style="text-align:right;background:#fff7e6;">150g</td>
+                      <td style="text-align:right;background:#e6f7ff;">300g</td>
+                      <td style="color:#888;font-size:12px;">Local supplier</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Salad Leaves</strong></td>
+                      <td style="font-family:monospace;font-size:11px;color:#888;">SKU-PRD-042</td>
+                      <td>g</td>
+                      <td style="text-align:right;background:#fff7e6;">40g</td>
+                      <td style="text-align:right;background:#e6f7ff;">80g</td>
+                      <td style="color:#888;font-size:12px;">Fresh produce</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Sesame Dressing</strong></td>
+                      <td style="font-family:monospace;font-size:11px;color:#888;">SKU-SOS-017</td>
+                      <td>ml</td>
+                      <td style="text-align:right;background:#fff7e6;">30ml</td>
+                      <td style="text-align:right;background:#e6f7ff;">60ml</td>
+                      <td style="color:#888;font-size:12px;">Condiments</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div style="margin-top:12px;padding:10px 14px;background:#fff7e6;border-radius:6px;font-size:12px;color:#d46b08;">
+                  ⏳ Testing Sheet and Portioning Sheet unlock once the menu is approved at the end of costing. Shows quantities for each selected serve (S1, S3 in this example).
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Annotations -->
+    <div class="annotation-notes">
+      <div class="annotation-note note-new">
+        <strong>Shoot Order List</strong>
+        Generated immediately when a dish is marked for shoot. Always uses S2 (Serves 2) quantities and SKUs. Same table format as existing proc team order lists.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>Testing Sheet</strong>
+        Shows quantities for each selected test serve (e.g. S1 and S3). Generated by the prop team at menu approval. Columns appear only for the selected serves — if only S1 was chosen, only one qty column appears.
+      </div>
+      <div class="annotation-note note-new">
+        <strong>Portioning Sheet</strong>
+        Used for mock bagging. Derived from the same Testing Sheet data — not a separate data source. Both documents can be generated from the same "Generate Testing Sheet" action.
+      </div>
+      <div class="annotation-note note-change">
+        <strong>Timing / availability</strong>
+        Shoot Order List → available immediately.<br/>
+        Testing Sheet + Portioning Sheet → locked until menu approval in Costing.
+      </div>
+      <div class="annotation-note">
+        <strong>Format consistency</strong>
+        All three documents should match the existing order list format the proc team already uses. No new format to learn.
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════
+     SUMMARY TABLE
+══════════════════════════════════════════════════════ -->
+<div style="background:#1a1a2e;padding:48px 60px;">
+  <div style="color:#fff;font-size:20px;font-weight:700;margin-bottom:6px;">Change Summary</div>
+  <div style="color:#aaa;font-size:13px;margin-bottom:28px;">All changes proposed in this document for developer implementation</div>
+  <table style="width:100%;border-collapse:collapse;font-size:13px;color:#fff;">
+    <thead>
+      <tr>
+        <th style="text-align:left;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.1);color:#aaa;font-size:11px;text-transform:uppercase;letter-spacing:1px;">#</th>
+        <th style="text-align:left;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.1);color:#aaa;font-size:11px;text-transform:uppercase;letter-spacing:1px;">Change</th>
+        <th style="text-align:left;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.1);color:#aaa;font-size:11px;text-transform:uppercase;letter-spacing:1px;">Screen</th>
+        <th style="text-align:left;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.1);color:#aaa;font-size:11px;text-transform:uppercase;letter-spacing:1px;">Type</th>
+        <th style="text-align:left;padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.1);color:#aaa;font-size:11px;text-transform:uppercase;letter-spacing:1px;">Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:12px 14px;color:#888;">1</td>
+        <td style="padding:12px 14px;">Add intermediate landing screen before Recipe Writing editor</td>
+        <td style="padding:12px 14px;color:#aaa;">Recipe Writing</td>
+        <td style="padding:12px 14px;"><span class="chip chip-new">New screen</span></td>
+        <td style="padding:12px 14px;"><span style="color:#ff4d4f;font-weight:700;">High</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:12px 14px;color:#888;">2</td>
+        <td style="padding:12px 14px;">Move Ingredients to its own tab (separate from Recipe tab)</td>
+        <td style="padding:12px 14px;color:#aaa;">Recipe Writing</td>
+        <td style="padding:12px 14px;"><span class="chip chip-new">New tab</span></td>
+        <td style="padding:12px 14px;"><span style="color:#ff4d4f;font-weight:700;">High</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:12px 14px;color:#888;">3</td>
+        <td style="padding:12px 14px;">Move Method to its own tab (separate from Recipe tab)</td>
+        <td style="padding:12px 14px;color:#aaa;">Recipe Writing</td>
+        <td style="padding:12px 14px;"><span class="chip chip-new">New tab</span></td>
+        <td style="padding:12px 14px;"><span style="color:#ff4d4f;font-weight:700;">High</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:12px 14px;color:#888;">4</td>
+        <td style="padding:12px 14px;">Visually group & highlight S1–S4 SKU columns in ingredients table</td>
+        <td style="padding:12px 14px;color:#aaa;">Ingredients Tab</td>
+        <td style="padding:12px 14px;"><span class="chip chip-change">Update</span></td>
+        <td style="padding:12px 14px;"><span style="color:#e17b2f;font-weight:700;">Medium</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:12px 14px;color:#888;">5</td>
+        <td style="padding:12px 14px;">Fix Method section search to search steps (not SKUs)</td>
+        <td style="padding:12px 14px;color:#aaa;">Method Tab</td>
+        <td style="padding:12px 14px;"><span class="chip chip-change">Bug fix</span></td>
+        <td style="padding:12px 14px;"><span style="color:#ff4d4f;font-weight:700;">High</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:12px 14px;color:#888;">6</td>
+        <td style="padding:12px 14px;">Add copy/duplicate step buttons (individual + bulk copy to S3&amp;S4)</td>
+        <td style="padding:12px 14px;color:#aaa;">Method Tab</td>
+        <td style="padding:12px 14px;"><span class="chip chip-new">New feature</span></td>
+        <td style="padding:12px 14px;"><span style="color:#e17b2f;font-weight:700;">Medium</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:12px 14px;color:#888;">7</td>
+        <td style="padding:12px 14px;">Add Protein Map tab to Brainstorm (proteins per week/quarter/category)</td>
+        <td style="padding:12px 14px;color:#aaa;">Brainstorm</td>
+        <td style="padding:12px 14px;"><span class="chip chip-new">New tab</span></td>
+        <td style="padding:12px 14px;"><span style="color:#ff4d4f;font-weight:700;">High</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:12px 14px;color:#888;">8</td>
+        <td style="padding:12px 14px;">Enrich Brainstorm idea form: Chef dropdown, ingredient list (max 15), promote-to-draft</td>
+        <td style="padding:12px 14px;color:#aaa;">Brainstorm → Ideas</td>
+        <td style="padding:12px 14px;"><span class="chip chip-change">Update</span></td>
+        <td style="padding:12px 14px;"><span style="color:#e17b2f;font-weight:700;">Medium</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:12px 14px;color:#888;">9</td>
+        <td style="padding:12px 14px;">Shoot checkbox → lock to Serves 2 (S2) and generate Shoot Order List for procurement in existing order-list format</td>
+        <td style="padding:12px 14px;color:#aaa;">Recipe Writing → Recipe Tab</td>
+        <td style="padding:12px 14px;"><span class="chip chip-change">Update</span></td>
+        <td style="padding:12px 14px;"><span style="color:#ff4d4f;font-weight:700;">High</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:12px 14px;color:#888;">10</td>
+        <td style="padding:12px 14px;">Test checkbox → multi-select serves (S1/S2/S3/S4, any combination) rather than a single toggle</td>
+        <td style="padding:12px 14px;color:#aaa;">Recipe Writing → Recipe Tab</td>
+        <td style="padding:12px 14px;"><span class="chip chip-change">Update</span></td>
+        <td style="padding:12px 14px;"><span style="color:#ff4d4f;font-weight:700;">High</span></td>
+      </tr>
+      <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+        <td style="padding:12px 14px;color:#888;">11</td>
+        <td style="padding:12px 14px;">Generate Testing Sheet + Portioning Sheet at menu approval (end of costing); locked/greyed until then</td>
+        <td style="padding:12px 14px;color:#aaa;">Generated Documents (Screen 5)</td>
+        <td style="padding:12px 14px;"><span class="chip chip-new">New feature</span></td>
+        <td style="padding:12px 14px;"><span style="color:#ff4d4f;font-weight:700;">High</span></td>
+      </tr>
+      <tr>
+        <td style="padding:12px 14px;color:#888;">12</td>
+        <td style="padding:12px 14px;"><span style="color:#ffe58f;">⚠ OPEN QUESTION:</span> Confirm with Cornell whether Protein Map base SKU should switch from S1 → S2 to flow through entire recipe creation process</td>
+        <td style="padding:12px 14px;color:#aaa;">Brainstorm → Protein Map</td>
+        <td style="padding:12px 14px;"><span style="background:rgba(255,229,143,0.2);color:#ffe58f;padding:2px 8px;border-radius:12px;font-size:11px;font-weight:600;border:1px solid rgba(255,229,143,0.4);">Decision needed</span></td>
+        <td style="padding:12px 14px;"><span style="color:#ffe58f;font-weight:700;">Blocker</span></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="watermark" style="color:rgba(255,255,255,0.2);margin-top:24px;">UCook Recipe Portal · UX Spec · March 2026 · masechaba@ucook.co.za</div>
+</div>
+
+</body>
+</html>
